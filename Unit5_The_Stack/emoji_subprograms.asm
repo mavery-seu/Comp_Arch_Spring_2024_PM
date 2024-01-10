@@ -37,8 +37,6 @@ asm_main:
 		call print_3_rows
 		call print_nl
 
-		dump_regs 1
-		call dump_stack 1, 12, -8
 		call print_4_rows
 		call print_nl
 
@@ -51,7 +49,9 @@ asm_main:
         ret
 
 print_2_rows:  			 	; subprogram that prints 1st 2 rows of structure
-	dump_stack 2, 12, -8
+	; dump_stack 2, 12, -8
+	; call printnl
+
 	mov eax, blossom
 	call print_string
 	call print_nl
@@ -68,7 +68,9 @@ print_daisy:
 	ret
 
 print_3_rows:				; subprogram that prints 1st 3 rows of structure
-	dump_stack 3, 12, -8
+	; dump_stack 3, 12, -8
+	; call print_nl
+
 	call print_2_rows
 
 	mov eax, rose
@@ -82,7 +84,9 @@ print_rose:
 
 	ret
 print_4_rows:	; subprogram that prints all 4 rows of the structure
-	dump_stack 4, 12, -8
+	; dump_stack 4, 12, -8
+	; call print_nl
+
 	call print_3_rows
 
 	mov eax, goat
