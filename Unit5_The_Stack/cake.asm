@@ -1,8 +1,4 @@
-
-
-;
-; file: skel.asm
-; This file is a skeleton that can be used to start assembly programs.
+; Author: Megan Avery Spring 2024 
 
 %include "asm_io.inc"
 segment .data

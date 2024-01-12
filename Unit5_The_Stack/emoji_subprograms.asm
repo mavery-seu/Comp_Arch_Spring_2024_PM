@@ -1,8 +1,4 @@
-
-
-;
-; file: skel.asm
-; This file is a skeleton that can be used to start assembly programs.
+; Author: Megan Avery Spring 2024 
 
 %include "asm_io.inc"
 segment .data
@@ -27,10 +23,6 @@ asm_main:
         enter   0,0               ; setup routine
        pusha
 
-;
-; code is put in the text segment. Do not modify the code before
-; or after this comment.
-;
 		call print_2_rows
 		call print_nl			
 
@@ -49,8 +41,8 @@ asm_main:
         ret
 
 print_2_rows:  			 	; subprogram that prints 1st 2 rows of structure
-	; dump_stack 2, 12, -8
-	; call printnl
+	; dump_stack 2, 12, -6
+	; call print_nl
 
 	mov eax, blossom
 	call print_string
@@ -68,7 +60,7 @@ print_daisy:
 	ret
 
 print_3_rows:				; subprogram that prints 1st 3 rows of structure
-	; dump_stack 3, 12, -8
+	; dump_stack 3, 12, -5
 	; call print_nl
 
 	call print_2_rows
@@ -83,8 +75,9 @@ print_rose:
 	call print_nl
 
 	ret
+
 print_4_rows:	; subprogram that prints all 4 rows of the structure
-	; dump_stack 4, 12, -8
+	; dump_stack 4, 12, -4
 	; call print_nl
 
 	call print_3_rows

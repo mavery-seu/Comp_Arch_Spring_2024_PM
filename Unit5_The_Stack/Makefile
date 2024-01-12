@@ -9,7 +9,7 @@ LDFLAGS := -m32
 CC		:= gcc
 CXX		:= g++
 CXXFLAGS := -m32
-TARGETS := cake emoji_subprograms number_operations skeleton stack sub1 sub2 sub3 sub4
+TARGETS := accessing_stack_elements cake emoji_subprograms encode number_operations reverse_string skeleton stack sub1 sub2 sub3 sub4
 DEP := driver.o asm_io.o
 
 .PHONY: clean
@@ -19,13 +19,19 @@ DEP := driver.o asm_io.o
 
 all: $(TARGETS)
 
+accessing_stack_elements: $(DEP)
+
 cake: $(DEP)
 
 emoji_subprograms: $(DEP)
 
+encode: $(DEP)
+
 number_operations: $(DEP)
 
 skeleton: $(DEP)
+
+reverse_string: $(DEP)
 
 stack: $(DEP)
 
@@ -40,11 +46,17 @@ sub4: $(DEP) main4.o
 asm_io.o: asm_io.asm
 	$(AS) $(ASFLAGS) -d ELF_TYPE asm_io.asm
 
+accessing_stack_elements.o:asm_io.asm
+
 cake.o: asm_io.inc
 
 emoji_subprograms.o: asm_io.inc
 
+encode.o: asm_io.inc
+
 number_operations.o: asm_io.inc
+
+reverse_string.o: asm_io.inc
 
 skeleton.o: asm_io.inc
 
