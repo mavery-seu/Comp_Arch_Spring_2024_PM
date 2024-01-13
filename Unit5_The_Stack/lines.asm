@@ -1,7 +1,4 @@
-; Original Author: Paul Carter
-; Updated by: Megan Avery Summer 2023
-; 
-; Purpose: skeleton file for writing an assembly program
+; Author: Megan Avery Spring 2024
 
 %include "asm_io.inc"
 
