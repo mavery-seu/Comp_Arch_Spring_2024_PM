@@ -9,7 +9,7 @@ LDFLAGS := -m32
 CC		:= gcc
 CXX		:= g++
 CXXFLAGS := -m32
-TARGETS := accessing_stack_elements cake emoji_subprograms encode number_operations reverse_string skeleton stack sub1 sub2 sub3 sub4
+TARGETS := accessing_stack_elements cake emoji_subprograms encode flags happy_numbers math_magic1 math_magic2 number_operations reverse_string skeleton stack sub1 sub2 sub3 sub4
 DEP := driver.o asm_io.o
 
 .PHONY: clean
@@ -26,6 +26,14 @@ cake: $(DEP)
 emoji_subprograms: $(DEP)
 
 encode: $(DEP)
+
+flags: $(DEP)
+
+happy_numbers: $(DEP)
+
+math_magic1: $(DEP)
+
+math_magic2: $(DEP)
 
 number_operations: $(DEP)
 
@@ -53,6 +61,14 @@ cake.o: asm_io.inc
 emoji_subprograms.o: asm_io.inc
 
 encode.o: asm_io.inc
+
+flags.o: asm_io.inc
+
+happy_numbers.o: asm_io.inc
+
+math_magic1.o: asm_io.inc
+
+math_magic2.o: asm_io.inc
 
 number_operations.o: asm_io.inc
 
