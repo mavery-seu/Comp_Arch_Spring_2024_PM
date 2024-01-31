@@ -23,79 +23,85 @@ asm_main:
         enter   0,0               ; setup routine
         pusha
 
-	; dump_regs 1
-        ; call print_nl
-        ; dump_regs 2
+        ; dumping registers
+	dump_regs 1     ; dump registers
+        call print_nl   ; print a newline
+        dump_regs 2     ; dump registers
+        call print_nl   ; print newline
 
-        ; mov eax, 0
-        ; mov ah, 18
-        ; mov al, 0BAH
-        ; dump_regs 1
-        ; call print_nl
+        ; MOV examples
+        mov eax, 0      ; eax = 0       
+        mov ah, 18      ; ah = 18 (base 10)
+        mov al, 0BAH    ; al = BA (base 16)
+        dump_regs 3     ; dump registers
+        call print_nl   ; print newline
 
-        ; mov ax, 4
-        ; dump_regs 2
+        mov ax, 4       ; ax = 4 (base 10)
+        dump_regs 4     ; dump registers
+        call print_nl   ; print newline
 
-        ; mov eax, 3 ; eax = 3
-        ; mov ebx, 4 ; eax = 4
-        ; add eax, ebx ; eax += ebx, eax = 7
-        ; dump_regs 1
+        ; ADD example
+        mov eax, 3      ; eax = 3
+        mov ebx, 4      ; eax = 4
+        add eax, ebx    ; eax += ebx, eax = 7
+        dump_regs 5     ; dump registers
+        call print_nl   ; print newline
 
-        ; mov eax, 40
-        ; dump_regs 1
-        ; call print_nl
+        ; ADD exercise  
+        mov eax, 40     ; eax = 40
+        dump_regs 6     ; dump registers
+        call print_nl   ; print newline
 
-        ; mov ebx, 2
-        ; dump_regs 2
-        ; call print_nl
+        mov ebx, 2      ; ebx = 2
+        dump_regs 7     ; dump registers
+        call print_nl   ; print newline
 
-        ; add eax, ebx
-        ; dump_regs 3
-        ; call print_nl
+        add eax, ebx    ; eax += ebx, eax = 42
+        dump_regs 8     ; dump registers
+        call print_nl   ; print newline
 
-        ; mov eax, 34
-        ; sub eax, 19 ; immediate operand
-        ; dump_regs 1
+        ; SUB example
+        mov eax, 34     ; eax = 34
+        sub eax, 19     ; immediate operand, eax -= 19, eax = 15
+        dump_regs 0     ; dump registers
+        call print_nl   ; print newline
 
-        ; mov eax, -32
-        ; dump_regs 2
+        ; negative number example
+        mov eax, -32    ; eax = 32 (base 10)
+        dump_regs 10     ; dump registers
+        call print_nl   ; print newline
 
-        ; inc 23 ; ERROR
+        ; inc 23 ; ERROR, cannot increment an immediate operand
 
-        ; mov eax, 16
-        ; dump_regs 1
-        ; call print_nl
+        ; SUB exercise
+        mov eax, 16     ; eax = 16
+        dump_regs 11     ; dump registers
+        call print_nl   ; print newline
 
-        ; sub eax, 4
-        ; dump_regs 2
-        ; call print_nl
+        sub eax, 4      ; eax -= 4, eax = 12
+        dump_regs 12     ; dump registers        
+        call print_nl   ; print newline
 
-        ; mov ebx, eax
-        ; dump_regs 3
-        ; call print_nl
+        mov ebx, eax    ; ebx = eax, ebx = 12
+        dump_regs 13     ; dump registers
+        call print_nl   ; print newline
 
-        ; inc ebx
-        ; dump_regs 4
+        inc ebx         ; ebx++, ebx = 13
+        dump_regs 14     ; dump registers
+        call print_nl
 
-        ; mov eax, 4
-        ; mov ebx, 4
-        ; mov ecx, 4
-
-        ; add eax, ebx ; 8
-        ; add ebx, ecx ; 8
-        ; add ecx, eax ; 12
-
+        ; attempting 4 * 12 with as few instructions as possible
         ; 8a + 4a = 12a
-        mov ebx, 4
+        mov ebx, 4      ; ebx = 4 (a)
 
-        add ebx, ebx ; 2 * 4 = 8 (2a)
-        add ebx, ebx ; 2 * 8 = 16 (4a)
-        mov ecx, ebx ; ecx = 16 (4a)
+        add ebx, ebx    ; 2 * 4 = 8 (2a)
+        add ebx, ebx    ; 2 * 8 = 16 (4a)
+        mov ecx, ebx    ; ecx = 16 (4a)
 
-        add ebx, ebx ; 2 * 16 = 32 (8a)
+        add ebx, ebx    ; 2 * 16 = 32 (8a)
 
-        add ebx, ecx ; 16 + 32 = 48 (12a)
-        dump_regs 1
+        add ebx, ecx    ; 16 + 32 = 48 (12a)
+        dump_regs 15     ; dump registers 
 
         popa
         mov     eax, 0            ; return back to C
