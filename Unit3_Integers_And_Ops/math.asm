@@ -33,57 +33,57 @@ asm_main:
         enter   0,0               ; setup routine
         pusha
 
-        mov     eax, prompt
-        call    print_string
+        mov     eax, prompt     ; setup prompt to be printed
+        call    print_string    ; print prompt
 
-        call    read_int
-        mov     [input], eax
+        call    read_int        ; reading number (int) from user
+        mov     [input], eax    ; moving number into [input]
 
-        imul    eax               ; edx:eax = eax * eax
-        mov     ebx, eax          ; save answer in ebx
-        mov     eax, square_msg
-        call    print_string
-        mov     eax, ebx
-        call    print_int
-        call    print_nl
+        imul    eax             ; edx:eax = eax * eax
+        mov     ebx, eax        ; save answer in ebx
+        mov     eax, square_msg ; setup square message
+        call    print_string    ; print square message
+        mov     eax, ebx        ; eax = ebx
+        call    print_int       ; print eax (number ^ 2)
+        call    print_nl        ; print newline
 
-        mov     ebx, eax
-        imul    ebx, [input]      ; ebx *= [input]
-        mov     eax, cube_msg
-        call    print_string
-        mov     eax, ebx
-        call    print_int
-        call    print_nl
+        mov     ebx, eax        ; ebx = eax -> (number ^ 2)
+        imul    ebx, [input]    ; ebx *= [input] -> (number ^ 3)
+        mov     eax, cube_msg   ; move cube message into eax 
+        call    print_string    ; print the cube message
+        mov     eax, ebx        ; eax = ebx -> (number ^ 3)
+        call    print_int       ; print out number ^ 3
+        call    print_nl        ; print a newline
 
-        imul    ecx, ebx, 25      ; ecx = ebx*25
-        mov     eax, cube25_msg
-        call    print_string
-        mov     eax, ecx
-        call    print_int
-        call    print_nl
+        imul    ecx, ebx, 25    ; ecx = ebx * 25
+        mov     eax, cube25_msg ; move cube25 message into eax
+        call    print_string    ; print cube25 message
+        mov     eax, ecx        ; eax = ecx -> (number ^ 3) * 25
+        call    print_int       ; print (number ^ 3) * 25
+        call    print_nl        ; print a newline
 
-        mov     eax, ebx
-        cdq                       ; initialize edx by sign extension
-        mov     ecx, 100          ; can't divide by immediate value
-        idiv    ecx               ; edx:eax / ecx
-        mov     ecx, eax          ; save quotient into ecx
-        mov     eax, quot_msg
-        call    print_string
-        mov     eax, ecx
-        call    print_int
-        call    print_nl
-        mov     eax, rem_msg
-        call    print_string
-        mov     eax, edx
-        call    print_int
-        call    print_nl
+        mov     eax, ebx        ; eax = ebx -> (number ^ 3)
+        cdq                     ; initialize edx by sign extension (all 0s)
+        mov     ecx, 100        ; can't divide by immediate value so ecx = 100
+        idiv    ecx             ; edx:eax / ecx -> (number ^ 3) / 100
+        mov     ecx, eax        ; save quotient into ecx
+        mov     eax, quot_msg   ; move quotient message into eax
+        call    print_string    ; print quotient message
+        mov     eax, ecx        ; eax = ecx -> quotient
+        call    print_int       ; print the quotient
+        call    print_nl        ; print a newline
+        mov     eax, rem_msg    ; move remainder message into eax
+        call    print_string    ; print remainder message
+        mov     eax, edx        ; eax = edx -> remainder
+        call    print_int       ; print the remainder
+        call    print_nl        ; print a newline
         
-        neg     edx               ; negate the remainder
-        mov     eax, neg_msg
-        call    print_string
-        mov     eax, edx
-        call    print_int
-        call    print_nl
+        neg     edx             ; negate edx (the remainder)
+        mov     eax, neg_msg    ; move negate message into eax
+        call    print_string    ; print negate message
+        mov     eax, edx        ; eax = edx (the negation of the remainder)
+        call    print_int       ; print the negation of the remainder
+        call    print_nl        ; print a newline
 
         popa
         mov     eax, 0            ; return back to C
