@@ -10,6 +10,7 @@
 
 ; initialized data
 segment .data
+left_prompt db "Shift left by: ", 0
 
 ; uninitialized data
 segment .bss
@@ -21,62 +22,36 @@ asm_main:
         enter   0,0               ; setup routine
         pusha
 
-	; mov eax, 10
-        ; shl eax, 3
-        ; call print_int
-        
-        ; mov ebx, 2
-        ; shl eax, ebx
+        ; shifting to the left - multiplying
+        mov eax, 10     ; eax = 10
+        shl eax, 3      ; eax << 3, multiply by 8 (2^3)
+        call print_int  ; print eax (80)
+        call print_nl   ; print a newline
 
-        ; mov eax, 080000045H
-        ; call print_int
-        ; call print_nl
+        ; shifting left - sign bit falls off
+        mov eax, 080000045H ; eax = large negative number 
+        call print_int  ; print large number
+        call print_nl   ; print a newline
+        shl eax, 1      ; eax << 1
+        call print_int  ; print eax <- sign will be switched
+        call print_nl   ; print a newline
 
-        ; shl eax, 1
-        ; call print_int
+        ; INCORRECT - can only use CL as the shift amount
+        ; mov ebx, 3    ; ebx = 3
+        ; mov eax, 20   ; eax = 20
+        ; shl eax, ebx  ; attempt to shift eax left by 3 (DOENS'T WORK)
+        ; call print_int; print eax
 
-        ; mov eax, 23
-        ; shr eax, 2
-        ; call print_int
-
-        ; mov eax, 4 ; 0100
-        ; mov ebx, 2 ; 0010
-        ; test eax, ebx
-        ; dump_regs 1
-
-        ; zero out register
-        ; shift until empty
-        ; mov eax, 190
-        ; shl eax, 100
-        ; call print_int
-        ; mov eax, 13
-        ; xor eax, eax
-        ; call print_int
-
-        ; mov ebx, 1
-        ; shl ebx, 2
-
-        ; mov eax, 11
-        ; or eax, ebx
-        ; call print_int
-
-        ; mov ebx, 1
-        ; shl ebx, 3
-        ; not ebx
-
-        ; mov eax, 15
-        ; and eax, ebx
-        ; call print_int
-
-        mov ebx, 00000FFFFH
-        mov eax, -1
-
-        and eax, ebx
-        dump_regs 1
+        ; shifting right - dividing
+        mov eax, 23     ; eax = 23
+        shr eax, 2      ; eax >> 2, divide by 4 (2^2) -> 5
+        call print_int  ; print eax
 
         popa
         mov     eax, 0            ; return back to C
         leave                     
         ret
+
+
 
 

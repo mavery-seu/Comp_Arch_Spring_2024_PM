@@ -23,7 +23,14 @@ asm_main:
         enter   0,0               ; setup routine
         pusha
 
-		; TODO: add code
+        ; test - AND numbers and sets flags
+        ; doesn't store the answers
+        mov eax, 4      ; eax = 4
+        mov ebx, 2      ; ebx = 2
+
+        ; do AND on eax and ebx, setting flags and not storing value
+        test eax, ebx   ; sets the zero flag
+        dump_regs 1     ; dump the registers
 
         popa
         mov     eax, 0            ; return back to C
