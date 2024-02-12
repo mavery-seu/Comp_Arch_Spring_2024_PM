@@ -9,7 +9,7 @@ LDFLAGS := -m32
 CC		:= gcc
 CXX		:= g++
 CXXFLAGS := -m32
-TARGETS := additional_analysis1 additional_analysis2 additional_analysis3 additional_debugging1 additional_debugging2 analysis2 analysis3 analysis4 debugging2 debugging3 debugging4 skeleton
+TARGETS := additional_analysis1 additional_analysis2 additional_analysis3 additional_analysis4 additional_debugging1 additional_debugging2 analysis2 analysis3 analysis4 debugging2 debugging3 debugging4 skeleton
 DEP := driver.o asm_io.o
 
 .PHONY: clean
@@ -22,6 +22,7 @@ all: $(TARGETS)
 additional_analysis1: $(DEP)
 additional_analysis2: $(DEP)
 additional_analysis3: $(DEP)
+additional_analysis4: $(DEP)
 
 additional_debugging1: $(DEP)
 additional_debugging2: $(DEP)
@@ -41,6 +42,7 @@ asm_io.o: asm_io.asm
 
 additional_analysis1.o: asm_io.inc
 additional_analysis2.o: asm_io.inc
+additional_analysis3.o: asm_io.inc
 additional_analysis3.o: asm_io.inc
 
 additional_debugging1.o: asm_io.inc

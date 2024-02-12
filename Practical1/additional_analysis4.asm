@@ -1,7 +1,7 @@
 ; Original Author: Paul Carter
 ; Updated by: Megan Avery Summer 2023
 ; 
-;  Explain what this piece of code is doing. 
+; Explain what this piece of code is doing. 
 ; What is the output for the input 13? The input 12? 
 ; Show all your work.
 

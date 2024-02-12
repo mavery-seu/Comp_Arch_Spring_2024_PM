@@ -25,7 +25,6 @@ asm_main:
 		
         call read_int
 		
-	mov ebx, eax
 	not eax 
 
 	shr eax, 2 
