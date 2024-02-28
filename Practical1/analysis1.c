@@ -14,6 +14,7 @@ contain if the user enters 1, 4, 5, 7?
 int main() {
     float* nums = calloc(SIZE, sizeof(float));
 
+    // input: 1, 4, 5, 7
     for (int i = 0; i < SIZE; ++i) {
         float current;
 	  printf("Enter number #%d: ", (i + 1));

@@ -2,7 +2,7 @@
 ;
 ; What is this piece of code doing to the bytes of
 ; the entered number? What happens if the user enters
-; the base 10 version of 0FFFFFFFFH (-1)? 16843009?
+; the base 10 version of 0FFFFFFFFH (-1)? 001010101H 16843009?
 
 %include "asm_io.inc"
 

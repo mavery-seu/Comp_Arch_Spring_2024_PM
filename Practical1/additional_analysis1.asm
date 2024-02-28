@@ -1,6 +1,6 @@
 ; Author: Megan Avery - Spring 2024
 ; 
-; What overaching operating is being applied to the number
+; What overaching operation is being applied to the number
 ; the user enters? Explain how you know. What is the output
 ; for 14? -9?
 
@@ -30,7 +30,6 @@ asm_main:
 		mov dword [number], eax
 
 		shr eax, 31
-		and eax, 1
 
 		mov dword [sign], eax
 
