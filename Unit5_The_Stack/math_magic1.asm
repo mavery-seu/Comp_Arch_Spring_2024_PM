@@ -100,8 +100,10 @@ step_0:
         mov     eax, prompt      ; print out prompt
         call    print_string
 
-        mov     ebx, answer       ; store address of input1 into ebx
-        call    get_int 
+        push ebx
+        mov     ebx, initial_input       ; store address of input1 into ebx
+        call    get_int
+        pop ebx 
 
         ret
 
