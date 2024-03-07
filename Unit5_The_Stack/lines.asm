@@ -41,9 +41,47 @@ segment .text
 draw_flag:
         push ebp
         mov ebp, esp
+        sub esp, 24
 
-        ; intentially left blank
+        mov eax, flag_chooser
+        call print_string
 
+        mov ecx, 6
+pick_color_loop:
+        call pick_color
+        call print_nl
+
+        mov ebx, esp
+        mov edx, ecx
+        dec edx
+        shl edx, 2
+
+        add ebx, edx
+        mov [ebx], eax
+
+        loop pick_color_loop
+
+        mov ecx, 6
+draw_flag_lines:
+        mov ebx, esp
+        mov edx, ecx
+        dec edx
+        shl edx, 2
+
+        add ebx, edx
+        mov eax, [ebx]
+
+        push ecx
+        push eax
+        push dword [ebp + 8]
+        call draw_line
+        add esp, 8
+        pop ecx
+
+        call print_nl 
+        loop draw_flag_lines
+
+        mov esp, ebp
         pop ebp
         ret
 

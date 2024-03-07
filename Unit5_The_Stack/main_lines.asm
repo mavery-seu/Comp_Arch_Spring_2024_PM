@@ -26,9 +26,15 @@ asm_main:
         push -1
         push eax
         call draw_line
-        add esp, 8
+        pop eax
+        add esp, 4
 
         call print_nl
+        call print_nl
+
+        push eax
+        call draw_flag
+        pop eax
 
         popa
         mov     eax, 0            ; return back to C
