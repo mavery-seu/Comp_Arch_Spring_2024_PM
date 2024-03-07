@@ -55,29 +55,29 @@ draw_flag:
         mov eax, flag_chooser
         call print_string
 
-        mov ecx, 6
+        mov ecx, 1
 pick_color_loop:
         call pick_color
         call print_nl
 
-        mov ebx, esp
+        mov ebx, ebp
         mov edx, ecx
-        dec edx
         shl edx, 2
 
-        add ebx, edx
+        sub ebx, edx
         mov [ebx], eax
 
-        loop pick_color_loop
+        inc ecx
+        cmp ecx, 6
+        jle pick_color_loop
 
-        mov ecx, 6
-draw_flag_lines:
-        mov ebx, esp
+        mov ecx, 1
+draw_flag_lines_loop:
+        mov ebx, ebp
         mov edx, ecx
-        dec edx
         shl edx, 2
 
-        add ebx, edx
+        sub ebx, edx
         mov eax, [ebx]
 
         push ecx
@@ -87,8 +87,11 @@ draw_flag_lines:
         add esp, 8
         pop ecx
 
-        call print_nl 
-        loop draw_flag_lines
+        call print_nl
+
+        inc ecx 
+        cmp ecx, 6
+        jle draw_flag_lines_loop
 
         mov esp, ebp
         pop ebp

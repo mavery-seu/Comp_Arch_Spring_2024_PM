@@ -57,9 +57,9 @@ check_happy:
         mov eax, dword [ebp + 8]
 
 check_happy_loop:
-        mov dword [esp - 4], eax
+        mov dword [ebp - 4], eax
 
-        push dword [esp - 4]
+        push dword [ebp - 4]
         call sum_digits_squares
         add esp, 4
 

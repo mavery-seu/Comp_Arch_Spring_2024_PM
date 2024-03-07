@@ -23,15 +23,6 @@ asm_main:
         call read_int
         call print_nl
 
-        push -1
-        push eax
-        call draw_line
-        pop eax
-        add esp, 4
-
-        call print_nl
-        call print_nl
-
         push eax
         call draw_flag
         pop eax
