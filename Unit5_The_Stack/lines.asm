@@ -8,6 +8,9 @@
 %define GREEN 3
 %define BLUE 4
 %define PURPLE 5
+%define PINK 6
+%define BABY_BLUE 7
+%define WHITE 8
 
 %define NL 10
 
@@ -23,6 +26,9 @@ yellow db ") yellow ", NL, 0
 green db ") green ", NL, 0
 blue db ") blue ", NL, 0
 purple db ") purple ", NL, 0
+pink db ") pink", NL, 0
+baby_blue db ") baby blue", NL, 0
+white db ") white", NL, 0
 color_input db "Choice: ", 0
 
 red_emoji db "🟥", 0
@@ -31,6 +37,9 @@ yellow_emoji db "🟨", 0
 green_emoji db "🟩", 0
 blue_emoji db "🟦", 0
 purple_emoji db "🟪", 0
+pink_emoji db "🌸", 0
+baby_blue_emoji db "🩵 ", 0
+white_emoji db "⬜️", 0
 
 ; uninitialized data
 segment .bss
@@ -147,6 +156,21 @@ pick_color:
         mov eax, purple
         call print_string
 
+        mov eax, PINK
+        call print_int
+        mov eax, pink
+        call print_string
+
+        mov eax, BABY_BLUE
+        call print_int
+        mov eax, baby_blue
+        call print_string
+
+        mov eax, WHITE
+        call print_int
+        mov eax, white
+        call print_string
+
         mov eax, color_input
         call print_string
 
@@ -179,6 +203,15 @@ translate_color:
         cmp eax, PURPLE
         je purple_case
 
+        cmp eax, PINK
+        je pink_case
+
+        cmp eax, BABY_BLUE
+        je baby_blue_case
+
+        cmp eax, WHITE
+        je white_case
+
         jmp end_switch
 
 red_case:
@@ -198,6 +231,15 @@ blue_case:
         jmp end_switch
 purple_case:
         mov eax, purple_emoji
+        jmp end_switch
+pink_case:
+        mov eax, pink_emoji
+        jmp end_switch
+baby_blue_case:
+        mov eax, baby_blue_emoji
+        jmp end_switch
+white_case:
+        mov eax, white_emoji
 
 end_switch:
         pop ebp
