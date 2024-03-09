@@ -21,8 +21,6 @@ segment .bss
 base10_answer resd 1
 count_answer resd 1
 
- 
-
 segment .text
         global  asm_main
 asm_main:
@@ -30,9 +28,9 @@ asm_main:
         pusha
 
 		; print initial prompt
-		mov eax, prompt
-		call print_string
-		call read_int
+		mov eax, prompt				; move prompt into EAX
+		call print_string			; print prompt
+		call read_int				; get user's input
 		
 		push base10_answer			; push where to hold base 10 version		
 		push eax					; push user entered binary numbers
@@ -63,22 +61,29 @@ asm_main:
         leave                     
         ret
 
-; function to convert a "binary" number into base 10
-;
-; binary_to_base10(int binary_number, int* answer)
+; Subprogram to convert a "binary" number into base 10
+; 
+; Stack Frame:
+; ------------
+; EBP + 12      parameter 2: address to store final answer
+; EBP + 8       parameter 1: original "binary" number
+; EBP + 4       return address 
+; EBP           previous EBP
+; EBP - 4       local variable 1: power
+; EBP - 8       local variable 2: final answer
 binary_to_base10:
 	; prologue
-	push ebp
-	mov ebp, esp
+	push ebp					; push the base pointer onto the stack
+	mov ebp, esp				; move the stack pointer into the base pointer
 	sub esp, 8					; make room for 2 local variables
 
 	mov dword [ebp - 4], 0   	; power 
 	mov dword [ebp - 8], 0   	; final answer
 
 	mov ebx, [ebp + 8]			; binary number into EBX
-binary_loop:
+binary_loop:					; label for binary_loop
 	cmp ebx, 0					; end loop when EBX is 0
-	je binary_ending	
+	je binary_ending			; if EBX is 0 jump to binary_ending
 
 	xor edx, edx				; clear EDX, getting ready for divison
 	mov eax, ebx				; move EBX into EAX, getting ready for division
@@ -98,26 +103,32 @@ binary_loop:
 
 	jmp binary_loop				; start binary loop over again
 
-binary_ending:
+binary_ending:					; label for binary ending
 	mov eax, [ebp - 8]			; move final answer into EAX
 	
 	mov ebx, [ebp + 12]			; move address of return variable into EBX
 	mov [ebx], eax				; set the value of EBX to EAX (the final answer)
 
 	; epilogue
-	mov esp, ebp
-	pop ebp
-	ret
+	mov esp, ebp				; move the base pointer into the stack pointer to reclaim local variable space
+	pop ebp						; pop and restore the base pointer
+	ret							; pop the return address and jumpt to it
 
-; function to count the number of 1s in the
+; Subprogram to count the number of 1s in the
 ; binary representation of a decimal number
 ;
-; count_ones(int decimal_number, int* answer)
+; Stack Frame:
+; ------------
+; EBP + 12      parameter 2: address to store final answer
+; EBP + 8       parameter 1:  base 10 number
+; EBP + 4       return address 
+; EBP           previous EBP
+; EBP - 4       local variable 1: the count of the number of 1s
 count_ones:
 	; prologue
-	push ebp
-	mov ebp, esp
-	sub esp, 4
+	push ebp					; push the base pointer onto the stack
+	mov ebp, esp				; move the stack pointer into the base pointer
+	sub esp, 4					; make room for 1 local variable
 
 	mov dword [ebp - 4], 0   	; count of 1s
 
@@ -125,9 +136,9 @@ count_ones:
 	xor ebx, ebx				; zero out EBX
 count_loop:
 	cmp eax, 0					; stop loop if EAX is 0
-	je count_ending
+	je count_ending				; if EAX is 0 jump to count_ending
 
-	shr eax, 1					; shift of right most bit of EAX
+	shr eax, 1					; shift off the right most bit of EAX
 	setc bl						; set BL based on the carry flag
 
 	add [ebp - 4], ebx			; add 1 or 0 to the final answer
@@ -141,7 +152,7 @@ count_ending:
 	mov [ebx], eax				; set value at EBX to the final count of 1s
 
 	; epilogue
-	mov esp, ebp
-	pop ebp
-	ret
+	mov esp, ebp				; move the stack pointer to the base pointer to reclaim local variable
+	pop ebp						; pop and restore the base pointer
+	ret							; pop the return address and jump to it
 

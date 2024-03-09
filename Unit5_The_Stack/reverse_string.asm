@@ -1,4 +1,6 @@
 ; Megan Avery Spring 2024
+;
+; Purpose: showcase pushing and popping
 
 %include "asm_io.inc"
 
@@ -29,7 +31,7 @@ asm_main:
         mov eax, string_prompt          ; move string_prompt into EAX
         call print_string               ; print string_prompt
 
-; read in 1 character at a time and push each character onto the stack
+; Read in 1 character at a time and push each character onto the stack
 input_loop:                             ; label for top of the input_loop
         call read_char                  ; read a single character
         push eax                        ; push EAX onto the stack 
@@ -40,7 +42,8 @@ input_loop:                             ; label for top of the input_loop
 
         call print_nl                   ; print a newline 
         mov ecx, [string_length]        ; move the value at string_length into ECX, the loop counter
-; pop every character back off the stack and print it to the screen
+
+; Pop every character back off the stack and print it to the screen
 remove_loop:                            ; label for the top of the remove_loop
         pop eax                         ; pop off the stack and save it into EAX
         call print_char                 ; print the character in AL

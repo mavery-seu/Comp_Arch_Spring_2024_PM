@@ -14,43 +14,45 @@ segment .bss
 
 segment .text
         global  asm_main
-        extern  factorial, fibonacci
+        extern  factorial, fibonacci            ; mark these subprograms as being in other files
 asm_main:
-        enter   0,0               ; setup routine
+        ; prologue
+        enter   0,0                             ; setup routine
         pusha
-        sub esp, 4
+        sub esp, 4                              ; subtract 4 from the stack pointer, room for 1 local variable
 
-        mov eax, prompt
-        call print_string
+        mov eax, prompt                         ; move prompt into EAX
+        call print_string                       ; print prompt
 
-        call read_int
-        call print_nl
+        call read_int                           ; read an integer from the user and store it in EAX
+        call print_nl                           ; print a newline
 
-        mov dword [ebp - 4], eax
+        mov dword [ebp - 4], eax                ; move EAX into the local variable, n
 
-        push dword [ebp - 4]
-        call factorial
-        add esp, 4
+        push dword [ebp - 4]                    ; push n onto the stack
+        call factorial                          ; push the return address onto the stack and jump to factorial
+        add esp, 4                              ; add 4 to the stack pointer to get rid of the parameter
 
-        mov ebx, eax
-        mov eax, factorial_message
-        call print_string
-        mov eax, ebx
-        call print_int
-        call print_nl
+        mov ebx, eax                            ; move the factorial answer into EBX
+        mov eax, factorial_message              ; move factorial_message into EAX
+        call print_string                       ; print factorial_message
+        mov eax, ebx                            ; move the factorial answer back into EAX
+        call print_int                          ; print the factorial answer
+        call print_nl                           ; print a newline
 
-        push dword [ebp - 4]
-        call fibonacci
-        add esp, 4
+        push dword [ebp - 4]                    ; push the original n onto the stack
+        call fibonacci                          ; push the return address onto the stack and jump to fibonacci
+        add esp, 4                              ; add 4 to the stack pointer to get rid of the parameter
 
-        mov ebx, eax
-        mov eax, fibonacci_message
-        call print_string
-        mov eax, ebx
-        call print_int        
+        mov ebx, eax                            ; move the fibonacci answer into EBX
+        mov eax, fibonacci_message              ; move fibonacci_message into EAX
+        call print_string                       ; print fibonacci_message
+        mov eax, ebx                            ; move the fibonacci answer back into EAX
+        call print_int                          ; print the fibonacci answer
 
-        add esp, 4
-        popa
+        ; epilogue
+        add esp, 4                              ; add 4 to the stack pointer to get rid of the local variable
+        popa    
         mov     eax, 0            ; return back to C
         leave                     
         ret
