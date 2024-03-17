@@ -2,14 +2,14 @@
 
 %include "asm_io.inc"
 
+%define HAPPY_NUMBER 1
+%define UNHAPPY_NUMBER 4
+
 ; initialized data
 segment .data
 initial_prompt db "Enter a happy number: ", 0
 error_message db "Oops, that's not right, try again: ", 0
 success_message db "You did it! 🥳", 0
-
-base_happy_number dd 1
-base_unhappy_number dd 4
 
 ; uninitialized data
 segment .bss
@@ -65,19 +65,19 @@ check_happy:                            ; label for check_happy subprogram
 	mov ebp, esp                    ; move the stack pointer into the base pointer
         sub esp, 4                      ; subtract 4 from the stack pointer, space for 1 local variable
 
-        mov eax, dword [ebp + 8]        ; move the number to check into EAX
+        mov eax, [ebp + 8]              ; move the number to check into EAX
 
 check_happy_loop:                       ; label for check_happy loop
-        mov dword [ebp - 4], eax        ; mov eax into the local variable, the intermediate value
+        mov [ebp - 4], eax              ; mov eax into the local variable, the intermediate value
 
         push dword [ebp - 4]            ; push the local variable onto the stack
         call sum_digits_squares         ; push the return address onto the stack and jump to sum_digits_squares
         add esp, 4                      ; reclaim stack space for parameter
 
-        cmp eax, [base_happy_number]    ; compare EAX to 1
+        cmp eax, HAPPY_NUMBER           ; compare EAX to 1
         je is_happy                     ; if EAX is 1 jump to is_happy
 
-        cmp eax, [base_unhappy_number]  ; compare EAX to 4
+        cmp eax, UNHAPPY_NUMBER              ; compare EAX to 4
         je is_unhappy                   ; if EAX is 4 jump to is_unhappy
 
         jmp check_happy_loop            ; jump back to the top of the loop

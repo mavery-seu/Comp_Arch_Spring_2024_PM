@@ -27,9 +27,9 @@ asm_main:
         call read_int                           ; read an integer from the user and store it in EAX
         call print_nl                           ; print a newline
 
-        mov dword [ebp - 4], eax                ; move EAX into the local variable, n
+        mov dword [ebp - 36], eax                ; move EAX into the local variable, n
 
-        push dword [ebp - 4]                    ; push n onto the stack
+        push dword [ebp - 36]                    ; push n onto the stack
         call factorial                          ; push the return address onto the stack and jump to factorial
         add esp, 4                              ; add 4 to the stack pointer to get rid of the parameter
 
@@ -40,7 +40,7 @@ asm_main:
         call print_int                          ; print the factorial answer
         call print_nl                           ; print a newline
 
-        push dword [ebp - 4]                    ; push the original n onto the stack
+        push dword [ebp - 36]                    ; push the original n onto the stack
         call fibonacci                          ; push the return address onto the stack and jump to fibonacci
         add esp, 4                              ; add 4 to the stack pointer to get rid of the parameter
 
