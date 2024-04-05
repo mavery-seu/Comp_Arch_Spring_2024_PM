@@ -9,7 +9,7 @@ LDFLAGS := -m32
 CC		:= gcc
 CXX		:= g++
 CXXFLAGS := -m32
-TARGETS := binary c_functions factorial fib skeleton sub5 taking_in_strings
+TARGETS := binary c_functions factorial counting_digits fib skeleton sub5 taking_in_strings
 DEP := driver.o asm_io.o
 
 .PHONY: clean
@@ -18,6 +18,9 @@ DEP := driver.o asm_io.o
 	$(AS) $(ASFLAGS) $< 
 
 all: $(TARGETS)
+
+counting_digits: $(DEP)
+counting_digits.o: asm_io.inc
 
 binary: main_binary.o asm_io.o
 
